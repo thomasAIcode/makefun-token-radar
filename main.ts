@@ -94,6 +94,10 @@ writeFileSync(join(out, "board.json"), `${JSON.stringify({ rows: board }, null, 
 writeFileSync(join(out, "data.js"), `globalThis.RADAR_SNAPSHOT=${JSON.stringify(payload)};\n`);
 copyFiles(join(here, "dashboard"), join(out, "dashboard"));
 const shots = copyFiles(join(here, "screenshots"), join(out, "screenshots"));
+const requiredShots = ["1-board.png", "2-detail.png", "3-filtered.png"];
+for (const name of requiredShots) {
+  if (!shots.includes(name)) throw new Error(`screenshots/${name} is missing`);
+}
 
 const top = ranked.rows[0];
 process.stdout.write(

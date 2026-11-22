@@ -33,10 +33,31 @@ function usdCompact(n) {
   if (v >= 1e9) return sign + "$" + (v / 1e9).toFixed(2) + "B";
   if (v >= 1e6) return sign + "$" + (v / 1e6).toFixed(2) + "M";
   if (v >= 1e3) return sign + "$" + (v / 1e3).toFixed(1) + "k";
-  return sign + "$" + Math.round(v);
+  if (v >= 100) return sign + "$" + Math.round(v);
+  return sign + "$" + v.toFixed(2);
+}
+
+function paperGrain() {
+  const c = document.createElement("canvas");
+  c.width = 360;
+  c.height = 240;
+  const g = c.getContext("2d");
+  const img = g.createImageData(360, 240);
+  let s = 20261114;
+  for (let i = 0; i < img.data.length; i += 4) {
+    s = (Math.imul(s, 1664525) + 1013904223) >>> 0;
+    const v = 206 + (s % 40);
+    img.data[i] = v;
+    img.data[i + 1] = v - 8;
+    img.data[i + 2] = v - 16;
+    img.data[i + 3] = 26;
+  }
+  g.putImageData(img, 0, 0);
+  document.body.style.backgroundImage = "url(" + c.toDataURL() + ")";
 }
 
 function boot(data) {
+  paperGrain();
   const ranked = rankLaunches(data.protocols, data.watchlist, data.floor_usd, data.as_of);
   const loo = looValidate(ranked.comps, data.as_of);
   const state = Object.assign(
@@ -62,7 +83,7 @@ function boot(data) {
     "<h1>Token radar</h1>" +
     '<p class="how">How to read this: rank 1 is the highest implied value, a fitted live-token market cap for the same TVL, category, 7-day change and age, times a ' +
     CONST.preTokenDiscount.toFixed(2) +
-    " pre-token discount. It is this board's claim, not a forecast that a token is issued.</p>";
+    " pre-token discount. It is this board's claim, not a forecast that a token is issued. The p25–p75 band is the comps residual quartile, the same factor on every row.</p>";
 
   checksEl.innerHTML = checksHtml(data.watchlist, ranked.rows, loo);
   foot.textContent =
@@ -192,7 +213,7 @@ function boot(data) {
       ["change", "7d"],
       ["age", "Age"],
       ["value", "Implied"],
-      ["band", "Band"],
+      ["band", "p25–p75"],
       ["ratio", "Value/TVL"],
       ["cost", "Farm cost"],
     ];
@@ -233,7 +254,7 @@ function boot(data) {
       (body || '<tr><td colspan="11">No protocol matches these filters.</td></tr>') +
       "</tbody></table></div>";
     const drawer = opened ? drawerHtml(opened, rankedNow, asOf) : "";
-    return '<div class="layout' + (opened ? " on" : "") + '">' + table + drawer + "</div>";
+    return '<div class="layout' + (opened ? " on" : "") + '"><div class="boardcol">' + table + "</div>" + drawer + "</div>";
   }
 }
 

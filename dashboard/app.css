@@ -93,7 +93,8 @@ input, select {
 input[type="search"] { min-width: 220px; }
 .showing { margin: 0 0 var(--s2); color: var(--muted); font-size: 13px; }
 .layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s3); align-items: start; }
-.layout.on { grid-template-columns: minmax(0, 1fr) 400px; }
+.layout.on { grid-template-columns: minmax(0, 1fr) 420px; }
+.layout > * { min-width: 0; }
 .table-wrap { overflow: auto; background: var(--paper); border: 1px solid var(--line); }
 table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: 13px; }
 th, td { padding: 6px 8px; text-align: right; border-bottom: 1px solid var(--line); white-space: nowrap; }
