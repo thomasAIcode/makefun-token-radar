@@ -1,0 +1,165 @@
+:root {
+  --bg: #efe6d4;
+  --paper: #fbf6ec;
+  --ink: #211c16;
+  --muted: #5e564a;
+  --faint: #8a8174;
+  --line: #e0d4c0;
+  --accent: #9c3412;
+  --accent-soft: #f6e3d4;
+  --good: #1b6b43;
+  --bad: #9d2424;
+  --watch: #8a5a10;
+  --early: #1d5c45;
+  --chip: #f3eadb;
+  --s1: 4px;
+  --s2: 8px;
+  --s3: 12px;
+  --s4: 16px;
+  --s5: 24px;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.45;
+}
+.skip {
+  position: absolute;
+  left: -999px;
+  top: var(--s2);
+}
+.skip:focus { left: var(--s2); background: var(--paper); padding: var(--s1) var(--s2); z-index: 5; }
+#mast, #checks, #tabs, #filters, #board, .foot { padding-left: var(--s4); padding-right: var(--s4); }
+#mast {
+  padding-top: var(--s3);
+  border-top: 4px solid var(--accent);
+}
+.eyebrow {
+  margin: 0;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+h1 {
+  margin: var(--s1) 0;
+  font-family: Georgia, "Iowan Old Style", Palatino, serif;
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+.how {
+  margin: 0 0 var(--s2);
+  max-width: 78em;
+  color: var(--muted);
+}
+.checks {
+  margin: 0;
+  padding-top: var(--s2);
+  padding-bottom: var(--s2);
+  background: #e7dcc8;
+  font-variant-numeric: tabular-nums;
+  font-size: 13px;
+}
+.checks strong { font-weight: 650; }
+#tabs { display: flex; gap: var(--s2); padding-top: var(--s2); }
+#tabs button, .filters button, th button, .namebtn, .close {
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  padding: var(--s1) var(--s2);
+  cursor: pointer;
+}
+#tabs button { border-bottom: 2px solid transparent; color: var(--muted); }
+#tabs button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); }
+.filters { display: flex; flex-wrap: wrap; gap: var(--s2); align-items: end; padding-top: var(--s2); padding-bottom: var(--s2); }
+label { display: flex; flex-direction: column; gap: var(--s1); font-size: 12px; color: var(--muted); }
+input, select {
+  font: inherit;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  padding: var(--s1) var(--s2);
+  min-height: 32px;
+}
+input[type="search"] { min-width: 220px; }
+.showing { margin: 0 0 var(--s2); color: var(--muted); font-size: 13px; }
+.layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s3); align-items: start; }
+.layout.on { grid-template-columns: minmax(0, 1fr) 400px; }
+.table-wrap { overflow: auto; background: var(--paper); border: 1px solid var(--line); }
+table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: 13px; }
+th, td { padding: 6px 8px; text-align: right; border-bottom: 1px solid var(--line); white-space: nowrap; }
+th:nth-child(2), td:nth-child(2), th:nth-child(3), td:nth-child(3), th:nth-child(4), td:nth-child(4) { text-align: left; }
+th button { padding: 0; font-weight: 650; }
+th button[aria-sort="ascending"]::after { content: " \2191"; }
+th button[aria-sort="descending"]::after { content: " \2193"; }
+tbody tr { cursor: pointer; }
+tbody tr:hover { background: #f6f0e4; }
+tbody tr[aria-selected="true"] { background: var(--accent-soft); box-shadow: inset 3px 0 0 var(--accent); }
+.namebtn { padding: 0; font-weight: 650; text-align: left; }
+.slug { display: block; color: var(--faint); font-weight: 400; font-size: 11px; }
+.tag {
+  display: inline-block;
+  margin-left: var(--s1);
+  padding: 0 4px;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border: 1px solid var(--line);
+  color: var(--watch);
+  vertical-align: 1px;
+}
+.tag.early { color: var(--early); }
+.up { color: var(--good); }
+.down { color: var(--bad); }
+.muted { color: var(--muted); }
+.drawer {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--accent);
+  padding: var(--s3);
+  position: sticky;
+  top: var(--s2);
+  max-height: calc(100vh - 16px);
+  overflow: auto;
+}
+.drawer h2 { margin: 0 0 var(--s1); font-family: Georgia, Palatino, serif; font-size: 22px; line-height: 1.2; }
+.kvs { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s2); margin: var(--s2) 0; }
+.kvs div { background: var(--bg); padding: var(--s2); }
+.kvs span { display: block; color: var(--muted); font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; }
+.kvs strong { font-variant-numeric: tabular-nums; font-size: 16px; }
+.sentence { margin: var(--s2) 0; }
+ol.steps, ul.terms { margin: var(--s2) 0; padding-left: 18px; }
+ol.steps li, ul.terms li { margin: 0 0 var(--s2); }
+.close { float: right; border: 1px solid var(--line); background: var(--paper); }
+.stats { display: flex; flex-wrap: wrap; gap: var(--s2); margin-bottom: var(--s3); }
+.stats div { background: var(--paper); border: 1px solid var(--line); padding: var(--s2) var(--s3); min-width: 140px; }
+.stats span { display: block; color: var(--muted); font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; }
+.stats strong { font-variant-numeric: tabular-nums; font-size: 20px; }
+.chart { background: var(--paper); border: 1px solid var(--line); padding: var(--s2); margin-bottom: var(--s3); }
+.chart svg { width: 100%; height: auto; display: block; }
+.chart .eq { stroke: var(--accent); stroke-width: 1; }
+.chart circle { fill: #3d4f73; }
+.chart .grid { stroke: var(--line); stroke-width: 1; }
+.chart text { fill: var(--muted); font-size: 11px; font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+.note { color: var(--muted); max-width: 70em; }
+.method { max-width: 72em; background: var(--paper); border: 1px solid var(--line); padding: var(--s4); }
+.method h2 { font-family: Georgia, Palatino, serif; font-size: 20px; margin: var(--s4) 0 var(--s2); }
+.method h2:first-child { margin-top: 0; }
+.method code { font-family: ui-monospace, "Cascadia Mono", Menlo, Consolas, monospace; font-size: 12px; }
+.foot { color: var(--muted); font-size: 12px; padding-bottom: var(--s5); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.empty { padding: var(--s4); background: var(--paper); border: 1px solid var(--line); }
+.keys { color: var(--faint); font-size: 12px; margin: 0 0 var(--s2); }
+@media (max-width: 1100px) {
+  .layout.on { grid-template-columns: 1fr; }
+  .drawer { position: static; max-height: none; }
+}
